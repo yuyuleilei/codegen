@@ -73,15 +73,14 @@
         </selectKey>
         INSERT INTO ${tableName} (
 		    <#list table.columnList as column>
-		    <#if column.primaryKey==false>
 		    ${column.fieldName}<#if column_has_next>,</#if>
-		    </#if>
 		    </#list>
         ) VALUES (
 		    <#list table.columnList as column>
-		    <#if column.primaryKey=false>
-		    ${'#'}{${column.columnName?uncap_first}}<#if column_has_next>,</#if>
+		    <#if column.primaryKey=true>
+		    UUID()<#if column_has_next>,</#if>
 		    </#if>
+		    ${'#'}{${column.columnName?uncap_first}}<#if column_has_next>,</#if>
 		    </#list>
         )
     </insert>
@@ -131,7 +130,7 @@
         <trim prefix="SET" suffixOverrides=",">
             <#list table.columnList as column>
 		    <#if column.primaryKey=false>
-		    ${column.fieldName}=${'#'}{${column.columnName?uncap_first}}<#if column_has_next>,</#if>
+		    ${column.fieldName}=${'#'}{${column.columnName?uncap_first},jdbcType=${column.columnTypeName}}<#if column_has_next>,</#if>
 		    </#if>
 		    </#list>
         </trim>
@@ -139,7 +138,7 @@
         <#assign hasData=false>
         <#list table.columnList as column>
 		<#if column.primaryKey>
-        ${column.fieldName} = ${'#'}{${column.columnName?uncap_first}}<#if hasData==false><#assign hasData=true><#else> AND </#if>
+        ${column.fieldName} = ${'#'}{${column.columnName?uncap_first},jdbcType=${column.columnTypeName}}<#if hasData==false><#assign hasData=true><#else> AND </#if>
         </#if>
 		</#list>
     </update>
@@ -149,8 +148,8 @@
         <trim prefix="SET" suffixOverrides=",">
             <#list table.columnList as column>
 		    <#if column.primaryKey=false>
-            <if test="${column.columnName}!=null <#if column.columnClassName=='java.lang.String'> and ${column.columnName} != '' </#if>">
-                ${column.fieldName} = <@mapperEl column.columnName?uncap_first /><#if column_has_next>,</#if>
+            <if test="${column.columnName?uncap_first} !=null <#if column.columnClassName=='java.lang.String'> and ${column.columnName} != '' </#if>">
+                ${column.fieldName} = ${'#'}{${column.columnName?uncap_first},jdbcType=${column.columnTypeName}}<#if column_has_next>,</#if>
             </if>
             </#if>
 		    </#list>
@@ -163,7 +162,7 @@
     </update>
 
     <update id="updateCustom" parameterType="${UpdateParams}">
-    UPDATE <@jspEl 'tableName'/>
+    UPDATE ${tableName}
     <trim prefix="SET" suffixOverrides=",">
     	<foreach collection="fields" item="item" index="index" separator="," >
         <@jspEl 'item'/>  ${"#{"}values[${"${"}index}]}
@@ -172,7 +171,6 @@
 	<include refid="Update_Conditions_Where_Clause" />	
 	<if test="conditions!=null">
 		<if test="conditions.orderByClause!=null"> <@jspEl 'conditions.orderByClause'/></if> 
-        <if test="conditions.limit!=null"> <@jspEl 'conditions.limit'/></if>
 	</if>	
     </update>
     
@@ -192,28 +190,39 @@
     <delete id="deleteByIds">
         DELETE FROM ${tableName}
         WHERE id in
-        <foreach collection="ids" item="id" open="(" separator="," close=")"><@mapperEl 'id'/></foreach>
+        <foreach collection="list" item="id" open="(" separator="," close=")"><@mapperEl 'id'/></foreach>
     </delete>
 
 	<!--根据自定义删除对象-->
     <delete id="deleteCustom" parameterType="${Conditions}">
-        DELETE FROM <@jspEl 'tableName'/>
+        DELETE FROM ${tableName}
         <include refid="Conditions_Where_Clause" />
-        <if test="orderByClause!=null"><@jspEl 'orderByClause'/></if> 
-        <if test="limit!=null"><@jspEl 'limit'/></if>
     </delete>
     
-    <select id="getById" parameterType="${idJavaType}" resultMap="BaseResultMap">
+    <select id="findById" parameterType="${idJavaType}" resultMap="BaseResultMap">
         SELECT
 	    <include refid="Base_Column_List" />
         FROM ${tableName} 
         WHERE 
-        n_id = <@mapperEl 'id'/>
+        ${pkName} = <@mapperEl 'id'/>
         LIMIT 0,1
     </select>
+    
+    <select id="findByEntity" parameterType="${entity}" resultMap="BaseResultMap">
+        SELECT  
+	    <include refid="Base_Column_List" />
+        FROM ${tableName} 
+        WHERE 1 = 1
+        <#list table.columnList as column>
+	     	<if test="${column.columnName} !=null <#if column.columnClassName=='java.lang.String'> and ${column.columnName} != '' </#if>">
+		   	 and ${column.fieldName}=${'#'}{${column.columnName?uncap_first},jdbcType=${column.columnTypeName}}
+		    </if>
+	 	</#list>
+	 	LIMIT 0,1
+    </select>
 
-    <select id="getBy" parameterType="${Conditions}" resultMap="BaseResultMap">
-        SELECT
+    <select id="findByCondition" parameterType="${Conditions}" resultMap="BaseResultMap">
+        SELECT 
         <choose>
            <when test="returnFields != null">
            <foreach collection="returnFields" item="f" separator=","><@jspEl 'f'/></foreach>
@@ -222,12 +231,17 @@
 	       <include refid="Base_Column_List" />
            </otherwise>
         </choose>
-        FROM <@jspEl 'tableName'/>
+        FROM ${tableName}
+        <if test="connectTable!=null">
+	        <foreach collection="connectTable" item="tb">
+	       	,<@jspEl 'tb'/>
+	       	</foreach>
+        </if>
         <include refid="Conditions_Where_Clause" />
         LIMIT 0,1
     </select>
 
-    <select id="listByCustom"  parameterType="${Conditions}" resultMap="BaseResultMap">
+    <select id="findList"  parameterType="${Conditions}" resultMap="BaseResultMap">
         SELECT
         <if test="distinct!=false">
         DISTINCT
@@ -240,16 +254,26 @@
 	       <include refid="Base_Column_List" />
            </otherwise>
         </choose>
-        FROM <@jspEl 'tableName'/>
+        FROM ${tableName}
+         <if test="connectTable!=null">
+	        <foreach collection="connectTable" item="tb">
+	       	,<@jspEl 'tb'/>
+	       	</foreach>
+        </if>
         <include refid="Conditions_Where_Clause" />
-        <if test="orderByClause!=null"><@jspEl 'orderByClause'/></if> 
-        <if test="limit!=null"><@jspEl 'limit'/></if>
+        <if test="orderByClause!=null"><@jspEl 'orderByClause'/></if>
+        <if test="limit!=''"><@jspEl 'limit'/></if>
     </select>
 
-    <select id="listPageCount" parameterType="${Conditions}" resultType="java.lang.Long">
+    <select id="findCount" parameterType="${Conditions}" resultType="java.lang.Long">
         SELECT
         COUNT(1)
-        FROM <@jspEl 'tableName'/>
+        FROM ${tableName}
+        <if test="connectTable!=null">
+	        <foreach collection="connectTable" item="tb">
+	       	,<@jspEl 'tb'/>
+	       	</foreach>
+        </if>
         <include refid="Conditions_Where_Clause" />
     </select>
 

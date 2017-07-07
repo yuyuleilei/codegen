@@ -36,9 +36,9 @@ import com.xhh.codegen.service.DbProvider;
  *
  */
 public class ProjectConfigHelper {
-	private static final String CODGEN_DEFAULT = "com/bcs/codgen/resources/codgen-default.xml";
+	private static final String CODGEN_DEFAULT = "com/xhh/codegen/resources/codegen-default.xml";
 	private static final String DEFAULT_PROJECT_NAME = "defaultProject";
-	private static final String USERCONFIGFILE_DEFAULT = "codgen-config.xml";
+	private static final String USERCONFIGFILE_DEFAULT = "codegen-config.xml";
 	
 	private static Map<String, ProjectConfig> projectConfigMap = null;
 	

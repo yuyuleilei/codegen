@@ -1,8 +1,8 @@
-<%@page import="com.xhh.codegen.util.BuildHelper"%>
-<%@page import="com.xhh.codegen.util.ProjectConfig"%>
+<%@page import="com.xhh.codegen.utils.BuildHelper"%>
+<%@page import="com.xhh.codegen.utils.ProjectConfig"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
 <%@page import="java.io.File"%>
-<%@page import="com.xhh.codegen.util.FileUtil"%>
+<%@page import="com.xhh.codegen.utils.FileUtil"%>
 <%@page import="java.net.URLDecoder"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%

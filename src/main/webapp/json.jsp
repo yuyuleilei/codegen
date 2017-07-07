@@ -1,9 +1,9 @@
 <%@page import="java.io.File"%>
 <%@page import="com.xhh.codegen.service.impl.ProjectBuildConfig"%>
-<%@page import="com.xhh.codegen.util.ProjectConfig"%>
+<%@page import="com.xhh.codegen.utils.ProjectConfig"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
-<%@page import="com.xhh.codegen.util.BuildHelper"%>
-<%@page import="com.xhh.codegen.util.MenuUtil"%>
+<%@page import="com.xhh.codegen.utils.BuildHelper"%>
+<%@page import="com.xhh.codegen.utils.MenuUtil"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();

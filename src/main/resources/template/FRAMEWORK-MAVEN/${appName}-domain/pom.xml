@@ -15,6 +15,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.xhh.${appName}</groupId>
+			<artifactId>${appName}-bfun</artifactId>
+			<version>${r'${project.version}'}</version>
+		</dependency>
+	</dependencies>
 	<build>
 	    <resources>
 			<resource>

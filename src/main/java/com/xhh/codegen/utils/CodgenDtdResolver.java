@@ -15,7 +15,7 @@ import org.xml.sax.InputSource;
  */
 public class CodgenDtdResolver implements EntityResolver {
 	private static final String DTD_NAME = "codgen-config";
-	private static final String SEARCH_PACKAGE = "com/bcs/codgen/resources/";
+	private static final String SEARCH_PACKAGE = "com/xhh/codegen/resources/";
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	public InputSource resolveEntity(String publicId, String systemId)

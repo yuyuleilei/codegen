@@ -10,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ${bfun}.bif.*;
-import ${CommonModelDir}.exception.BusinessException;
-import ${bfun}.bmodel.JsonResult;
-import ${bfun}.bmodel.JsonResultUtil;
+import ${bfun}.bexception.BusinessException;
+import ${bfun}.bmodel.*;
 
 
  /**

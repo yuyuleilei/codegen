@@ -13,7 +13,6 @@
 package ${NamespaceDomain};
 
 import java.io.Serializable;
-import java.util.*;
 import ${bfun}.bannotation.*;
 
 /**

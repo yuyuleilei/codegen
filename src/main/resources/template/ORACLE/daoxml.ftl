@@ -14,11 +14,12 @@
         <#assign idJavaType = column.columnClassName />
     </#if>
 </#list>
+<#assign entity="${NamespaceDomain}.${Po}" />
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="${MapperDir}.${Po}Mapper">
-	<resultMap type="${ModelDir}.${Po}" id="BaseResultMap">
+	<resultMap type="${entity}" id="BaseResultMap">
 	  <#list table.columnList as column>
       <result column="${column.fieldName}" property="${column.columnName}" jdbcType="${column.columnTypeName}"/>
 	  </#list>
@@ -66,7 +67,7 @@
         </#list>
     </sql>
     
-    <insert id="insert" keyProperty="${primaryKey}" useGeneratedKeys="true" parameterType="${ModelDir}.${Po}">
+    <insert id="insert" keyProperty="${primaryKey}" useGeneratedKeys="true" parameterType="${entity}">
     	<selectKey resultType="${idJavaType}" order="BEFORE" keyProperty="${primaryKey}">
         SELECT sys_guid() from DUAL
     	</selectKey>
@@ -81,7 +82,7 @@
         )
     </insert>
     
-    <insert id="insertNotNull" keyProperty="${primaryKey}" useGeneratedKeys="true" parameterType="${ModelDir}.${Po}">
+    <insert id="insertNotNull" keyProperty="${primaryKey}" useGeneratedKeys="true" parameterType="${entity}">
     <selectKey resultType="${idJavaType}" order="BEFORE" keyProperty="${primaryKey}">
         SELECT sys_guid() from DUAL
     </selectKey>
@@ -119,7 +120,7 @@
 	</insert>
 	
     <!-- 更新 -->
-    <update id="update" parameterType="${ModelDir}.${Po}">
+    <update id="update" parameterType="${entity}">
         UPDATE ${tableName}
         <trim prefix="SET" suffixOverrides=",">
             <#list table.columnList as column>
@@ -137,7 +138,7 @@
 		</#list>
     </update>
 	
-    <update id="updateNotNull" parameterType="${ModelDir}.${Po}">
+    <update id="updateNotNull" parameterType="${entity}">
         UPDATE ${tableName}
         <trim prefix="SET" suffixOverrides=",">
             <#list table.columnList as column>
@@ -184,7 +185,7 @@
     <delete id="deleteByIds">
         DELETE FROM ${tableName}
         WHERE id in
-        <foreach collection="ids" item="id" open="(" separator="," close=")"><@mapperEl 'id'/></foreach>
+        <foreach collection="list" item="id" open="(" separator="," close=")"><@mapperEl 'id'/></foreach>
     </delete>
 
 	<!--根据自定义删除对象-->
@@ -202,7 +203,7 @@
         and rownum = 1 
     </select>
     
-    <select id="findByEntity" parameterType="${ModelDir}.${Po}" resultMap="BaseResultMap">
+    <select id="findByEntity" parameterType="${entity}" resultMap="BaseResultMap">
         SELECT  
 	    <include refid="Base_Column_List" />
         FROM ${tableName} 

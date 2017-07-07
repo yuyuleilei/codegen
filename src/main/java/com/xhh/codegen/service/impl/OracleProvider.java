@@ -91,9 +91,6 @@ public class OracleProvider extends DbProvider {
 		return tableComments;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.bcs.codgen.service.DbProvider#getPrimaryKeys(java.lang.String)
-	 */
 	@Override
 	protected List<PrimaryKeyModel> getPrimaryKeys(String tableName) {
 		//oracle在此方法调用需要大写表名
@@ -101,9 +98,6 @@ public class OracleProvider extends DbProvider {
 		return super.getPrimaryKeys(tableName);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.bcs.codgen.service.DbProvider#getImportedKeys(java.lang.String)
-	 */
 	@Override
 	protected List<ForeignKeyModel> getImportedKeys(String tableName) {
 		//oracle在此方法调用需要大写表名
@@ -111,9 +105,6 @@ public class OracleProvider extends DbProvider {
 		return super.getImportedKeys(tableName);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.bcs.codgen.service.DbProvider#getExportedKeys(java.lang.String)
-	 */
 	@Override
 	protected List<ForeignKeyModel> getExportedKeys(String tableName) {
 		//oracle在此方法调用需要大写表名

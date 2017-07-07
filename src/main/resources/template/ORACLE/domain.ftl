@@ -14,9 +14,7 @@ package ${ModelDir};
 
 import java.io.Serializable;
 import java.util.*;
-import com.alibaba.fastjson.JSON;
 import ${bfun}.bannotation.*;
-import ${CommonModelDir}.BaseModel;
 
 /**
  * 《${tableLabel}》 实体
@@ -24,7 +22,7 @@ import ${CommonModelDir}.BaseModel;
  *
  */
 @Table(value="${table.tableName}")
-public class ${Po} extends BaseModel implements Serializable {
+public class ${Po} implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	<#list table.columnList as column>
@@ -59,13 +57,23 @@ public class ${Po} extends BaseModel implements Serializable {
 	}
 	</#list>
 	
-	public static String getTableName() {
+	public static String getTbName() {
 		return "${table.tableName}";
 	}
 	
 	@Override
 	public String toString(){
-		return JSON.toJSONString(this);
+		StringBuilder builder = new StringBuilder();
+		builder.append("${Po} [")
+		<#list table.columnList as column>
+		<#if column_index==0>
+		.append("${column.columnName}=").append(this.get${column.columnName?cap_first}())
+		<#else>
+		.append(",${column.columnName}=").append(this.get${column.columnName?cap_first}())
+		</#if>
+		</#list>
+		.append("]");
+		return builder.toString();
 	}
 	
 	public static enum ${Po}Enum{

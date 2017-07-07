@@ -1,9 +1,9 @@
 <%@page import="com.xhh.codegen.model.ColumnModel"%>
 <%@page import="com.xhh.codegen.model.TableModel"%>
-<%@page import="com.xhh.codegen.util.BuildHelper"%>
+<%@page import="com.xhh.codegen.utils.BuildHelper"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
-<%@page import="com.xhh.codegen.util.ProjectConfig"%>
-<%@page import="com.xhh.codegen.java.util.*"%>
+<%@page import="com.xhh.codegen.utils.ProjectConfig"%>
+<%@page import="java.util.*"%>
 <%@page contentType="text/html;charset=UTF-8" %>
 <%
 String path = request.getContextPath();

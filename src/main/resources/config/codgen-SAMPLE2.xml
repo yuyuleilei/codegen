@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE codgen-config PUBLIC "-//Apache Software Foundation//DTD Tengen Configuration 1.0//EN" "com/bcs/codgen/resources/codgen-config_1_0.dtd">
+<!DOCTYPE codgen-config PUBLIC "-//Apache Software Foundation//DTD Tengen Configuration 1.0//EN" "com/xhh/codegen/resources/codgen-config_1_0.dtd">
 <codgen-config>
 	<project name="shuwu_test" label="庶务通测试" outputEncoding="UTF-8" >
-		<dbProvider class="com.bcs.codgen.service.impl.OracleProvider">
+		<dbProvider class="com.xhh.codegen.service.impl.OracleProvider">
 			<jdbcConfig>
 				<driver>oracle.jdbc.driver.OracleDriver</driver>
 				<url>jdbc:oracle:thin:@192.168.1.249:1521:gdalims</url>
 				<user>qd_lims</user>
 				<password>qd_lims</password>
 			</jdbcConfig>
-			<columnHandler class="com.bcs.codgen.service.impl.DataTypeConverterForJava"/>
-			<columnHandler class="columnHandler.OracleColumnHandler"/>
+			<columnHandler class="com.xhh.codegen.service.impl.DataTypeConverterForJava"/>
+			<columnHandler class="com.xhh.codegen.handler.columnHandler.OracleColumnHandler"/>
 			<!-- 不使用系统默认的空格分隔符（要使用则去掉下面这行配置，当然可以设置其他分隔符来覆盖默认的空格分隔符） -->
 			<splitorForLabelFromComment></splitorForLabelFromComment>
 		</dbProvider>
 		<!-- 自定义的构建配置处理器，可以在配置信息初始化、获取数据模型前后、获取输出模型前后时进行定制处理 -->
-		<buildConfigHandler class="buildConfigHandler.SampleBuildConfigHandler" />
+		<buildConfigHandler class="com.xhh.codegen.handler.buildConfigHandler.SampleBuildConfigHandler" />
 			
 		<dataModel name="templateDirectory">template/SAMPLE</dataModel>
 		<dataModel name="outputDirectory">/xhh/MyEclipse-2015-Workspace/${projectName}</dataModel>

@@ -26,11 +26,6 @@
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>${mybatis-spring.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -50,11 +45,6 @@
 		</dependency>
 		<!-- spring -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
@@ -64,32 +54,25 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.38</version>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>${druid.version}</version>
-		</dependency>
-		
 		<dependency>
 			<groupId>com.xhh.${appName}</groupId>
 			<artifactId>${appName}-domain</artifactId>
-			<version>${project.version}</version>
+			<version>${r'${project.version}'}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.xhh.${appName}</groupId>
 			<artifactId>${appName}-api</artifactId>
-			<version>${project.version}</version>
+			<version>${r'${project.version}'}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.xhh.${appName}</groupId>
 			<artifactId>${appName}-common</artifactId>
-			<version>${project.version}</version>
+			<version>${r'${project.version}'}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xhh.${appName}</groupId>
+			<artifactId>${appName}-bfun</artifactId>
+			<version>${r'${project.version}'}</version>
 		</dependency>
 		<!-- actuator start -->
 		<dependency>

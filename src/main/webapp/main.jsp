@@ -2,8 +2,8 @@
 <%@page import="com.xhh.codegen.service.DbProvider"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.io.File"%>
-<%@page import="com.xhh.codegen.util.ZipUtil"%>
-<%@page import="com.xhh.codegen.util.FileUtil"%>
+<%@page import="com.xhh.codegen.utils.ZipUtil"%>
+<%@page import="com.xhh.codegen.utils.FileUtil"%>
 <%@page import="com.xhh.codegen.model.InOutType"%>
 <%@page import="java.util.Map.Entry"%>
 <%@page import="com.xhh.codegen.service.impl.ProjectBuildConfig"%>
@@ -11,11 +11,11 @@
 <%@page import="com.xhh.codegen.service.Builder"%>
 <%@page import="com.xhh.codegen.model.OutputModel"%>
 <%@page language="java" import="java.util.*"  pageEncoding="UTF-8"%>
-<%@page import="com.xhh.codegen.util.ProjectConfig"%>
-<%@page import="com.xhh.codegen.util.BuildHelper"%>
+<%@page import="com.xhh.codegen.utils.ProjectConfig"%>
+<%@page import="com.xhh.codegen.utils.BuildHelper"%>
 <%@page import="org.apache.commons.lang.StringUtils"%>
 <%@page import="com.xhh.codegen.model.TableModel"%>
-<%@page import="com.xhh.codegen.util.BuildHelper"%>
+<%@page import="com.xhh.codegen.utils.BuildHelper"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE codgen-config PUBLIC "-//Apache Software Foundation//DTD Tengen Configuration 1.0//EN" "com/bcs/codgen/resources/codgen-config_1_0.dtd">
+<!DOCTYPE codgen-config PUBLIC "-//Apache Software Foundation//DTD Tengen Configuration 1.0//EN" "com/xhh/codegen/resources/codgen-config_1_0.dtd">
 <codgen-config>
-	<project name="demo" label="测试" outputEncoding="UTF-8" isDefault="true">
+	<project name="hadoop" label="测试" outputEncoding="UTF-8" isDefault="true">
 		<dbProvider class="com.xhh.codegen.service.impl.MysqlProvider">
 			<jdbcConfig>
 				<driver>com.mysql.jdbc.Driver</driver>
@@ -18,36 +18,35 @@
 		<buildConfigHandler class="com.xhh.codegen.handler.buildConfigHandler.SampleBuildConfigHandler" />
 			
 		<dataModel name="templateDirectory">template/SAMPLE</dataModel>
-		<dataModel name="outputDirectory">D:/data/project</dataModel>
-		<dataModel name="NamespaceProject">com.xhh.demo</dataModel>
+		<dataModel name="outputDirectory">e:/data/project</dataModel>
+		<dataModel name="NamespaceProject">com.xhh.${projectName}</dataModel>
 		<!-- <dataModel name="NamespaceDomain" >${NamespaceProject}.${groupName}.entity</dataModel>
 		<dataModel name="NamespaceParam" >${NamespaceProject}.${groupName}.param</dataModel>
 		<dataModel name="NamespaceDao">${NamespaceProject}.${groupName}.dao</dataModel>
 		<dataModel name="NamespaceService">${NamespaceProject}.${groupName}.service</dataModel>
 		<dataModel name="NamespaceServiceImpl">${NamespaceProject}.${groupName}.service.impl</dataModel> -->
 		<!-- 自定义变量 -->
-		<dataModel name="NamespaceDomain" >${NamespaceProject}.entity.${groupName}</dataModel>
-		<dataModel name="NamespaceDao">${NamespaceProject}.mapper.${groupName}</dataModel>
-		<dataModel name="NamespaceService">${NamespaceProject}.service.${groupName}</dataModel>
-		<dataModel name="NamespaceServiceImpl">${NamespaceProject}.service.impl.${groupName}</dataModel>
+		<dataModel name="NamespaceDomain" >${NamespaceProject}.entity</dataModel>
+		<dataModel name="NamespaceDao">${NamespaceProject}.mapper</dataModel>
+		<dataModel name="NamespaceService">${NamespaceProject}.service</dataModel>
+		<dataModel name="NamespaceServiceImpl">${NamespaceProject}.service.impl</dataModel>
 		
 		<dataModel name="bfun">com.xhh.bfun</dataModel>
 		<dataModel name="Conditions">${bfun}.bmodel.Conditions</dataModel>
 		<dataModel name="UpdateParams">${bfun}.bmodel.UpdateParams</dataModel>
 		
-		<dataModel name="common_model">demo/demo-api</dataModel>
-		<dataModel name="api">demo/demo-api</dataModel>
-		<dataModel name="service">demo/demo-service</dataModel>
+		<dataModel name="domain">${projectName}/${projectName}-domain</dataModel>
+		<dataModel name="api">${projectName}/${projectName}-api</dataModel>
+		<dataModel name="service">${projectName}/${projectName}-service</dataModel>
 		
-		<dataModel name="CommonModelDir">${NamespaceProject}.common.model</dataModel>
 		
-		<dataModel name="MapperDir">${NamespaceProject}.mapper.${groupName}</dataModel>
-		<dataModel name="ModelDir">${NamespaceProject}.entity.${groupName}</dataModel>
-		<dataModel name="serviceDir">${NamespaceProject}.service.${groupName}</dataModel>
-		<dataModel name="serviceImplDir">${NamespaceProject}.service.impl.${groupName}</dataModel> 
+		<dataModel name="MapperDir">${NamespaceProject}.mapper</dataModel>
+		<dataModel name="ModelDir">${NamespaceProject}.entity</dataModel>
+		<dataModel name="serviceDir">${NamespaceProject}.service</dataModel>
+		<dataModel name="serviceImplDir">${NamespaceProject}.service.impl</dataModel> 
 		
 		<output name="domain" type="file">
-			/${api}/src/main/java/${ModelDir?replace(".","/")}/${moduleName?cap_first}.java
+			/${domain}/src/main/java/${ModelDir?replace(".","/")}/${moduleName?cap_first}.java
 		</output>
 		<output name="daoxml" type="file">
 			/${service}/src/main/resources/mybatis/${moduleName?cap_first}Mapper.xml
@@ -55,12 +54,11 @@
 		<output name="dao" type="file">
 			/${service}/src/main/java/${MapperDir?replace(".","/")}/${moduleName?cap_first}Mapper.java
 		</output>
-		<output name="service" type="file">
-			/${api}/src/main/java/${serviceDir?replace(".","/")}/${moduleName?cap_first}Service.java
-		</output>
 		<output name="serviceImpl" type="file">
 			/${service}/src/main/java/${serviceImplDir?replace(".","/")}/${moduleName?cap_first}ServiceImpl.java
 		</output> 
-		
+		<output name="service" type="file">
+			/${api}/src/main/java/${serviceDir?replace(".","/")}/${moduleName?cap_first}Service.java
+		</output>
 	</project>
 </codgen-config>

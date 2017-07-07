@@ -28,7 +28,7 @@ public class Copyright implements Serializable{
 	 */
 	public Copyright() {
 		if(StringUtils.isBlank(author)){
-			this.author = "codgen";
+			this.author = "codegen";
 		}
 	}
 	/**

@@ -1,18 +1,19 @@
 <#include "include/head.ftl">
 
-package ${NamespaceServiceImpl};
+package ${serviceImplDir};
 
-import ${NamespaceDao}.${Po}Mapper;
-import ${NamespaceDomain}.${Po};
-import ${NamespaceService}.${Po}Service;
+import ${MapperDir}.${Po}Mapper;
+import ${ModelDir}.${Po};
+import ${serviceDir}.${Po}Service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ${bfun}.bif.*;
-import ${CommonModelDir}.exception.BusinessException;
-import ${bfun}.bmodel.JsonResult;
-import ${bfun}.bmodel.JsonResultUtil;
+import ${bfun}.bexception.BusinessException;
+import ${bfun}.bmodel.*;
+import ${bfun}.benum.BaseEnum.BusinessExceptionEnum;
+import ${bfun}.butils.JsonResultUtil;
 
 
  /**
@@ -34,28 +35,44 @@ public class ${Po}ServiceImpl extends BaseServiceImpl<${Po}, ${pkcolumnSimpleCla
 	@Override
 	@Transactional
 	public JsonResult add(List<${Po}> list) throws BusinessException {
-		${po}Mapper.batchInsert(list);
+		try {
+			${po}Mapper.batchInsert(list);
+		} catch (Exception e) {
+			throw new BusinessException(BusinessExceptionEnum.INSERT,e);
+		}
 		return JsonResultUtil.success();
 	}
 	
 	@Override
 	@Transactional
 	public JsonResult update(UpdateParams params) throws BusinessException {
-		${po}Mapper.updateCustom(params);
+		try {
+			${po}Mapper.updateCustom(params);
+		} catch (Exception e) {
+			throw new BusinessException(BusinessExceptionEnum.UPDATE,e);
+		}
 		return JsonResultUtil.success();
 	}
 
 	@Override
 	@Transactional
 	public JsonResult delByIds(String[] ids) throws BusinessException {
-		${po}Mapper.deleteByIds(ids);
+		try {
+			${po}Mapper.deleteByIds(ids);
+		} catch (Exception e) {
+			throw new BusinessException(BusinessExceptionEnum.DELETE,e);
+		}
 		return JsonResultUtil.success();
 	}
 
 	@Override
 	@Transactional
 	public JsonResult delBy(Conditions conditions) throws BusinessException {
-		${po}Mapper.deleteCustom(conditions);
+		try {
+			${po}Mapper.deleteCustom(conditions);
+		} catch (Exception e) {
+			throw new BusinessException(BusinessExceptionEnum.DELETE,e);
+		}
 		return JsonResultUtil.success();
 	}
 

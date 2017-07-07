@@ -230,14 +230,6 @@ public class ProjectBuildConfig implements BuildConfig {
 			return dataModelMap;
 		}
 		
-		
-		/*try {
-			dataModelMap.put("codgen.dir", ClassLoaderUtil.getExtendResource("com/bcs/codgen/").getPath());
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
-				
 		doBeforeParseDataModel();
 		
 		getDataModel();//确保已实例化

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE codgen-config PUBLIC "-//Apache Software Foundation//DTD Tengen Configuration 1.0//EN" "codgen-config_1_0.dtd">
 <codgen-config>
-	<project name="defaultProject" label="默认项目" outputEncoding="GBK" isDefault="true">
+	<project name="defaultProject" label="默认项目" outputEncoding="UTF-8" isDefault="true">
 		<dataModel name="defaultCopyright">
 			<![CDATA[ 
 /*
