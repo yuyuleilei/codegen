@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE codgen-config PUBLIC "-//Apache Software Foundation//DTD Tengen Configuration 1.0//EN" "com/bcs/codgen/resources/codgen-config_1_0.dtd">
+<codgen-config>
+	<project name="codgen-framework" label="应用基础框架" outputEncoding="UTF-8" isDefault="true">
+		<!-- 自定义的构建配置处理器，可以在配置信息初始化、获取数据模型前后、获取输出模型前后时进行定制处理 -->
+		<buildConfigHandler class="buildConfigHandler.FrameworkBuildConfigHandler" />
+			
+		<dataModel name="templateDirectory">template/FRAMEWORK-MAVEN</dataModel>
+		<dataModel name="appCode">CODEGEN_DEMO</dataModel>
+		<dataModel name="appName">demo</dataModel>
+		<dataModel name="appLabel">示例应用</dataModel>
+		<dataModel name="outputDirectory">d:/data/project/${appName}</dataModel>
+	</project>
+</codgen-config>

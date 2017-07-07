@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE codgen-config PUBLIC "-//Apache Software Foundation//DTD Tengen Configuration 1.0//EN" "com/bcs/codgen/resources/codgen-config_1_0.dtd">
+<codgen-config>
+	<project name="demo" label="测试" outputEncoding="UTF-8" isDefault="true">
+		<dbProvider class="com.xhh.codegen.service.impl.MysqlProvider">
+			<jdbcConfig>
+				<driver>com.mysql.jdbc.Driver</driver>
+				<url>jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=UTF-8</url>
+				<user>root</user>
+				<password>root</password>
+			</jdbcConfig>
+			<columnHandler class="com.xhh.codegen.service.impl.DataTypeConverterForJava"/>
+			<columnHandler class="com.xhh.codegen.handler.columnHandler.CamelColumnHandler"/>
+			<!-- 不使用系统默认的空格分隔符（要使用则去掉下面这行配置，当然可以设置其他分隔符来覆盖默认的空格分隔符） -->
+			<splitorForLabelFromComment></splitorForLabelFromComment>
+		</dbProvider>
+		<!-- 自定义的构建配置处理器，可以在配置信息初始化、获取数据模型前后、获取输出模型前后时进行定制处理 -->
+		<buildConfigHandler class="com.xhh.codegen.handler.buildConfigHandler.SampleBuildConfigHandler" />
+			
+		<dataModel name="templateDirectory">template/SAMPLE</dataModel>
+		<dataModel name="outputDirectory">D:/data/project</dataModel>
+		<dataModel name="NamespaceProject">com.xhh.demo</dataModel>
+		<!-- <dataModel name="NamespaceDomain" >${NamespaceProject}.${groupName}.entity</dataModel>
+		<dataModel name="NamespaceParam" >${NamespaceProject}.${groupName}.param</dataModel>
+		<dataModel name="NamespaceDao">${NamespaceProject}.${groupName}.dao</dataModel>
+		<dataModel name="NamespaceService">${NamespaceProject}.${groupName}.service</dataModel>
+		<dataModel name="NamespaceServiceImpl">${NamespaceProject}.${groupName}.service.impl</dataModel> -->
+		<!-- 自定义变量 -->
+		<dataModel name="NamespaceDomain" >${NamespaceProject}.entity.${groupName}</dataModel>
+		<dataModel name="NamespaceDao">${NamespaceProject}.mapper.${groupName}</dataModel>
+		<dataModel name="NamespaceService">${NamespaceProject}.service.${groupName}</dataModel>
+		<dataModel name="NamespaceServiceImpl">${NamespaceProject}.service.impl.${groupName}</dataModel>
+		
+		<dataModel name="bfun">com.xhh.bfun</dataModel>
+		<dataModel name="Conditions">${bfun}.bmodel.Conditions</dataModel>
+		<dataModel name="UpdateParams">${bfun}.bmodel.UpdateParams</dataModel>
+		
+		<dataModel name="common_model">demo/demo-api</dataModel>
+		<dataModel name="api">demo/demo-api</dataModel>
+		<dataModel name="service">demo/demo-service</dataModel>
+		
+		<dataModel name="CommonModelDir">${NamespaceProject}.common.model</dataModel>
+		
+		<dataModel name="MapperDir">${NamespaceProject}.mapper.${groupName}</dataModel>
+		<dataModel name="ModelDir">${NamespaceProject}.entity.${groupName}</dataModel>
+		<dataModel name="serviceDir">${NamespaceProject}.service.${groupName}</dataModel>
+		<dataModel name="serviceImplDir">${NamespaceProject}.service.impl.${groupName}</dataModel> 
+		
+		<output name="domain" type="file">
+			/${api}/src/main/java/${ModelDir?replace(".","/")}/${moduleName?cap_first}.java
+		</output>
+		<output name="daoxml" type="file">
+			/${service}/src/main/resources/mybatis/${moduleName?cap_first}Mapper.xml
+		</output>
+		<output name="dao" type="file">
+			/${service}/src/main/java/${MapperDir?replace(".","/")}/${moduleName?cap_first}Mapper.java
+		</output>
+		<output name="service" type="file">
+			/${api}/src/main/java/${serviceDir?replace(".","/")}/${moduleName?cap_first}Service.java
+		</output>
+		<output name="serviceImpl" type="file">
+			/${service}/src/main/java/${serviceImplDir?replace(".","/")}/${moduleName?cap_first}ServiceImpl.java
+		</output> 
+		
+	</project>
+</codgen-config>
