@@ -6,9 +6,10 @@
 		<buildConfigHandler class="com.xhh.codegen.handler.buildConfigHandler.FrameworkBuildConfigHandler" />
 			
 		<dataModel name="templateDirectory">template/FRAMEWORK-MAVEN</dataModel>
-		<dataModel name="appCode">CODEGEN_DEMO</dataModel>
-		<dataModel name="appName">demo</dataModel>
-		<dataModel name="appLabel">示例应用</dataModel>
+		<dataModel name="appCode">CODEGEN_XHH</dataModel>
+		<dataModel name="appName">xhh</dataModel>
+		<dataModel name="appLabel">构建整体项目</dataModel>
+		<dataModel name="appBaseDir">com.company.xhh</dataModel>
 		<dataModel name="outputDirectory">e:/data/project/${appName}</dataModel>
 	</project>
 </codgen-config>

@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.xhh.${appName}</groupId>
+	<groupId>${appBaseDir}</groupId>
 	<artifactId>${appName}</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -29,6 +29,7 @@
 	</properties>
   <modules>
     <module>${appName}-common</module>
+    <module>${appName}-bfun</module>
     <module>${appName}-domain</module>
     <module>${appName}-api</module>
     <module>${appName}-service</module>

@@ -21,7 +21,7 @@
 <mapper namespace="${MapperDir}.${Po}Mapper">
 	<resultMap type="${entity}" id="BaseResultMap">
 	  <#list table.columnList as column>
-      <result column="${column.fieldName}" property="${column.columnName}" jdbcType="${column.columnType}" jdbcType="${column.columnTypeName}"/>
+      <result column="${column.fieldName}" property="${column.columnName}" jdbcType="${column.columnTypeName}"/>
 	  </#list>
 	</resultMap>
 	

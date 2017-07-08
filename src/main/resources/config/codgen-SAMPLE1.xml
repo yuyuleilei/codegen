@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE codgen-config PUBLIC "-//Apache Software Foundation//DTD Tengen Configuration 1.0//EN" "com/xhh/codegen/resources/codgen-config_1_0.dtd">
 <codgen-config>
-	<project name="hadoop" label="测试" outputEncoding="UTF-8" isDefault="true">
+	<project name="xhh" label="测试" outputEncoding="UTF-8" isDefault="true">
 		<dbProvider class="com.xhh.codegen.service.impl.MysqlProvider">
 			<jdbcConfig>
 				<driver>com.mysql.jdbc.Driver</driver>
@@ -19,18 +19,14 @@
 			
 		<dataModel name="templateDirectory">template/SAMPLE</dataModel>
 		<dataModel name="outputDirectory">e:/data/project</dataModel>
-		<dataModel name="NamespaceProject">com.xhh.${projectName}</dataModel>
-		<!-- <dataModel name="NamespaceDomain" >${NamespaceProject}.${groupName}.entity</dataModel>
-		<dataModel name="NamespaceParam" >${NamespaceProject}.${groupName}.param</dataModel>
-		<dataModel name="NamespaceDao">${NamespaceProject}.${groupName}.dao</dataModel>
-		<dataModel name="NamespaceService">${NamespaceProject}.${groupName}.service</dataModel>
-		<dataModel name="NamespaceServiceImpl">${NamespaceProject}.${groupName}.service.impl</dataModel> -->
+		<dataModel name="NamespaceProject">com.hisign.${projectName}</dataModel>
+		
 		<!-- 自定义变量 -->
 		<dataModel name="NamespaceDomain" >${NamespaceProject}.entity</dataModel>
 		<dataModel name="NamespaceDao">${NamespaceProject}.mapper</dataModel>
 		<dataModel name="NamespaceService">${NamespaceProject}.service</dataModel>
 		<dataModel name="NamespaceServiceImpl">${NamespaceProject}.service.impl</dataModel>
-		
+		<!-- 对应bfun项目中的类，尽量别改 -->
 		<dataModel name="bfun">com.xhh.bfun</dataModel>
 		<dataModel name="Conditions">${bfun}.bmodel.Conditions</dataModel>
 		<dataModel name="UpdateParams">${bfun}.bmodel.UpdateParams</dataModel>
@@ -39,12 +35,12 @@
 		<dataModel name="api">${projectName}/${projectName}-api</dataModel>
 		<dataModel name="service">${projectName}/${projectName}-service</dataModel>
 		
-		
 		<dataModel name="MapperDir">${NamespaceProject}.mapper</dataModel>
 		<dataModel name="ModelDir">${NamespaceProject}.entity</dataModel>
 		<dataModel name="serviceDir">${NamespaceProject}.service</dataModel>
 		<dataModel name="serviceImplDir">${NamespaceProject}.service.impl</dataModel> 
 		
+		<!-- 输出  -->
 		<output name="domain" type="file">
 			/${domain}/src/main/java/${ModelDir?replace(".","/")}/${moduleName?cap_first}.java
 		</output>

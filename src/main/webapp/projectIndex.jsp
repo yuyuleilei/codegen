@@ -33,6 +33,8 @@
 			,projectConfig.getDataModelMap().get("appName"));
 	String appLabel = StringUtils.defaultString(request.getParameter("appLabel")
 			,projectConfig.getDataModelMap().get("appLabel"));
+	String appBaseDir = StringUtils.defaultString(request.getParameter("appBaseDir")
+			,projectConfig.getDataModelMap().get("appBaseDir"));
 	String author = StringUtils.defaultString(request.getParameter("author"),"");
 	   
 	
@@ -53,6 +55,7 @@
 	projectConfig.getDataModelMap().put("appCode", appCode);
 	projectConfig.getDataModelMap().put("appName", appName);
 	projectConfig.getDataModelMap().put("appLabel", appLabel);
+	projectConfig.getDataModelMap().put("appBaseDir", appBaseDir);
 
 	ProjectBuildConfig buildConfig = new ProjectBuildConfig(projectConfig);
 	//设置版本的创建人
@@ -207,6 +210,15 @@
 				<td class="td_content" >
 					<input class="easyui-validatebox" type="text" name="appLabel" data-options="required:true" size="50" value="<%=appLabel%>"/>
 					如：示例应用
+				</td>
+			</tr>
+			<tr>
+				<td class="td_title" >
+					应用基本包名：
+				</td>
+				<td class="td_content" >
+					<input class="easyui-validatebox" type="text" name="appBaseDir" data-options="required:true" size="50" value="<%=appBaseDir%>"/>
+					如：com.baidu.appName
 				</td>
 			</tr>
 			<tr>

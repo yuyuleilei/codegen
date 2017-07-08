@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE codgen-config PUBLIC "-//Apache Software Foundation//DTD Tengen Configuration 1.0//EN" "com/xhh/codegen/resources/codgen-config_1_0.dtd">
 <codgen-config>
-	<project name="shuwu_test" label="庶务通测试" outputEncoding="UTF-8" >
+	<project name="test" label="test" outputEncoding="UTF-8" >
 		<dbProvider class="com.xhh.codegen.service.impl.OracleProvider">
 			<jdbcConfig>
 				<driver>oracle.jdbc.driver.OracleDriver</driver>
@@ -19,7 +19,7 @@
 			
 		<dataModel name="templateDirectory">template/SAMPLE</dataModel>
 		<dataModel name="outputDirectory">/xhh/MyEclipse-2015-Workspace/${projectName}</dataModel>
-		<dataModel name="NamespaceProject">com.wg.bsp</dataModel>
+		<dataModel name="NamespaceProject">com.hisign.test</dataModel>
 		<dataModel name="NamespaceDomain" >${NamespaceProject}.${groupName}.entity</dataModel>
 		<dataModel name="NamespaceParam" >${NamespaceProject}.${groupName}.param</dataModel>
 		<dataModel name="NamespaceDao">${NamespaceProject}.${groupName}.mapper</dataModel>
