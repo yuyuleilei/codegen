@@ -209,12 +209,23 @@ public class TestApplication {
 	@Test
 	public void getPage1(){
 		Conditions conditions = new Conditions();
-		conditions.createCriteria().add(UserEnum.username.get(), ConditionEnum.LIKE, "xhh1");
+		Criteria c1 = conditions.createCriteria().add(UserEnum.username.get(), ConditionEnum.LIKE, "xhh1");
 		// or 
-		Criteria cc = conditions.createCriteria();
-		cc.add(UserEnum.createTime.get(), IsBTEnum.BT, "2017-07-09 00:00:00" ,"2017-07-10 00:00:00");
-		conditions.or(cc);
+		Criteria c2 = conditions.createCriteria();
+		c2.add(UserEnum.createTime.get(), IsBTEnum.BT, "2017-07-09 00:00:00" ,"2017-07-10 00:00:00");
+		conditions.or(c2);
 		
+		//如果是简单的联表，可以用，暂时只支持inner join，如果需要支持其他，可以自己改模板 daoxml.ftl（注意：如果两张表存在同名字段，那返回字段和条件都需要加上tableName.）
+		conditions.connectTable(User.getTableName());
+		
+		//连接条件(注意：如果同表关联，不支持，)
+		//例如如下，如果不同表，同字段，则相对应在前面
+		c1.addConnCondition(UserEnum.id.get(), ConditionEnum.EQ,UserEnum.id.get());
+		
+		//返回字段，如果不需要枚举，也可以静态类，可以更改domain.ftl自行修改，修改之后如下：UserSta.id,相对节省.get()的代码
+		conditions.setReturnFields(new String[]{UserEnum.id.get(),UserEnum.username.get()});
+		
+		//总之，联表，不太推荐使用，除非，指定返回字段与关联条件不复杂
 		Page<User> page = userService.getPage(conditions);
 		System.out.println(page);
 	}
