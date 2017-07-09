@@ -51,11 +51,6 @@
 			}
 		}
 	}
-	
-	//把appName 和 appBaseDir存到session
-	HttpSession ss = request.getSession();
-	ss.setAttribute("appName", appName);
-	ss.setAttribute("appBaseDir", appBaseDir);
 
 	projectConfig.getDataModelMap().put("appCode", appCode);
 	projectConfig.getDataModelMap().put("appName", appName);
@@ -192,7 +187,7 @@
         <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0" class="table01"> 
 			<tr>
 				<td class="td_title" >
-					应用代码：
+					项目代码：
 				</td>
 				<td class="td_content" >
 					<input class="easyui-validatebox" type="text" name="appCode" data-options="required:true" size="50" value="<%=appCode%>"/>
@@ -201,7 +196,7 @@
 			</tr>
 			<tr>
 				<td class="td_title" >
-					应用标识：
+					项目名称：
 				</td>
 				<td class="td_content" >
 					<input class="easyui-validatebox" type="text" id="appName" name="appName" data-options="required:true" size="50" value="<%=appName%>"/>
@@ -210,7 +205,7 @@
 			</tr>
 			<tr>
 				<td class="td_title" >
-					应用名称：
+					项目简介：
 				</td>
 				<td class="td_content" >
 					<input class="easyui-validatebox" type="text" name="appLabel" data-options="required:true" size="50" value="<%=appLabel%>"/>
@@ -219,7 +214,7 @@
 			</tr>
 			<tr>
 				<td class="td_title" >
-					应用基本包名：
+					基本包名：
 				</td>
 				<td class="td_content" >
 					<input class="easyui-validatebox" type="text" name="appBaseDir" data-options="required:true" size="50" value="<%=appBaseDir%>"/>
