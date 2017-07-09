@@ -56,7 +56,7 @@ public class ${Po} implements Serializable {
 	}
 	</#list>
 	
-	public String getTableName() {
+	public static String getTableName() {
 		return "${table.tableName}";
 	}
 	
