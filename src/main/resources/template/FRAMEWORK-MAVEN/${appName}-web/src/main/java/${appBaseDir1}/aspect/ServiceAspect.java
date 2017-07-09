@@ -1,3 +1,4 @@
+package ${appBaseDir}.aspect;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
@@ -28,7 +29,7 @@ public class ServiceAspect {
 	private Object result;
 	private StringBuffer sb = new StringBuffer();
 	
-	@Pointcut("execution( *  com.xhh.xxx.service..*.*(..))")  
+	@Pointcut("execution( *  com.hisign.xhh.service..*.*(..))")  
     public void logPoint() {}
 
 	@Before(value="logPoint()")

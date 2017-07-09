@@ -5,9 +5,9 @@
 		<dbProvider class="com.xhh.codegen.service.impl.OracleProvider">
 			<jdbcConfig>
 				<driver>oracle.jdbc.driver.OracleDriver</driver>
-				<url>jdbc:oracle:thin:@192.168.1.249:1521:gdalims</url>
-				<user>qd_lims</user>
-				<password>qd_lims</password>
+				<url>jdbc:oracle:thin:@127.0.0.1:1521:gdalims</url>
+				<user>root</user>
+				<password>root</password>
 			</jdbcConfig>
 			<columnHandler class="com.xhh.codegen.service.impl.DataTypeConverterForJava"/>
 			<columnHandler class="com.xhh.codegen.handler.columnHandler.OracleColumnHandler"/>

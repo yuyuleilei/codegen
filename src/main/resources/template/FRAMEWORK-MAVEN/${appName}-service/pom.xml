@@ -52,11 +52,6 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>${r'${druid.version}'}</version>
-		</dependency>
 	</dependencies>
 	<build>
 	    <resources>

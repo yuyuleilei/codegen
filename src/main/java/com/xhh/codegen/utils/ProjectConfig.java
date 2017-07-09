@@ -26,7 +26,7 @@ public class ProjectConfig  implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String projectName;
 	private String projectLabel;
-	private String outputEncoding = "GBK";
+	private String outputEncoding = "UTF-8";
 	private DbProvider dbProvider;
 	private Map<String, String> dataModelMap = new LinkedHashMap<String,String>();
 	private Map<String, OutputModel> outputMap = new LinkedHashMap<String,OutputModel>();

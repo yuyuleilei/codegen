@@ -389,7 +389,7 @@ if(StringUtils.isBlank(projectName)){
 		<tr>
 			<td>
 				<h1 style="margin: 15px;">
-				C o d g e n 代 码 生 成 器 
+				C o d e g e n 代 码 生 成 器 
 <!--				<span style="font-size: large;">—— 开发之利器</span> -->
 				</h1>
 			</td>

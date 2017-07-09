@@ -98,6 +98,11 @@ public abstract class BaseServiceImpl<T,PK> implements BaseService<T, PK>{
 	}
 	
 	@Override
+	public List<T> getListByEntity(T entity) {
+		return getMapper().findListByEntity(entity);
+	}
+	
+	@Override
 	public Long getCount(Conditions condition) {
 		return getMapper().findCount(condition);
 	}

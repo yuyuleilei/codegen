@@ -209,11 +209,23 @@
         FROM ${tableName} 
         WHERE 1 = 1
         <#list table.columnList as column>
-	     	<if test="${column.columnName} !=null <#if column.columnClassName=='java.lang.String'> and ${column.columnName} != '' </#if>">
+	     	<if test="${column.columnName} != null <#if column.columnClassName=='java.lang.String'> and ${column.columnName} != '' </#if>">
 		   	 and ${column.fieldName}=${'#'}{${column.columnName?uncap_first},jdbcType=${column.columnTypeName}}
 		    </if>
 	 	</#list>
 	 	and rownum = 1 
+    </select>
+    
+    <select id="findListByEntity" parameterType="${entity}" resultMap="BaseResultMap">
+        SELECT  
+	    <include refid="Base_Column_List" />
+        FROM ${tableName} 
+        WHERE 1 = 1
+        <#list table.columnList as column>
+	     	<if test="${column.columnName} != null <#if column.columnClassName=='java.lang.String'> and ${column.columnName} != '' </#if>">
+		   	 and ${column.fieldName}=${'#'}{${column.columnName?uncap_first}}
+		    </if>
+	 	</#list>
     </select>
     
     <select id="findByCondition" parameterType="${Conditions}" resultMap="BaseResultMap">

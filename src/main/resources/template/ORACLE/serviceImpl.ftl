@@ -54,7 +54,7 @@ public class ${Po}ServiceImpl extends BaseServiceImpl<${Po}, ${pkcolumnSimpleCla
 
 	@Override
 	@Transactional
-	public JsonResult delByIds(String[] ids) throws BusinessException {
+	public JsonResult delByIds(List<${pkcolumnSimpleClassName}> ids) throws BusinessException {
 		try {
 			${po}Mapper.deleteByIds(ids);
 		} catch (Exception e) {

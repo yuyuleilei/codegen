@@ -1,0 +1,229 @@
+package ${appBaseDir};
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.hisign.xhh.entity.User;
+import com.hisign.xhh.entity.User.UserEnum;
+import com.hisign.xhh.service.UserService;
+import com.xhh.bfun.benum.BaseEnum.ConditionEnum;
+import com.xhh.bfun.benum.BaseEnum.IsBTEnum;
+import com.xhh.bfun.bexception.BusinessException;
+import com.xhh.bfun.bmodel.Conditions;
+import com.xhh.bfun.bmodel.Conditions.Criteria;
+import com.xhh.bfun.bmodel.JsonResult;
+import com.xhh.bfun.bmodel.Page;
+import com.xhh.bfun.bmodel.UpdateParams;
+
+@RunWith(SpringJUnit4ClassRunner.class)  
+@SpringBootTest
+@ComponentScan(basePackages = {"com.hisign.xhh"})
+public class TestApplication {
+	
+	private Logger logger = LoggerFactory.getLogger(UserService.class);
+
+	@Autowired
+	private UserService userService;
+	
+	@Test
+	public void add(){
+		try {
+			User user = new User();
+			user.setAge(10);
+			user.setId(UUID.randomUUID().toString().replace("-", ""));
+			user.setUsername("xhh");
+			user.setPassword("123456");
+			user.setCreateTime("2017-07-08 11:46:22");
+			JsonResult add = userService.add(user);
+			System.out.println(add);
+		} catch (BusinessException e) {
+			//打印错误信息
+			printException(e);
+		}
+	}
+
+	@Test
+	public void addNotNull() {
+		try {
+			User user = new User();
+			user.setId(UUID.randomUUID().toString().replace("-", "").replace("-", ""));
+			user.setUsername("xhh-12");
+			user.setPassword("1234567");
+			user.setCreateTime("2017-07-08 11:46:60");
+			JsonResult result = userService.addNotNull(user);
+			System.out.println(result);
+		} catch (BusinessException e) {
+			printException(e);
+		}
+	}
+	
+	@Test
+	public void addList() {
+		try {
+			List<User> list = new ArrayList<User>();
+			for (int i = 0; i < 10; i++) {
+				User user = new User();
+				user.setAge(i);
+				user.setId(UUID.randomUUID().toString().replace("-", ""));
+				user.setUsername("xhh"+i);
+				user.setPassword("123456");
+				user.setCreateTime("2017-07-08 11:46:60");
+				list.add(user);
+			}
+			JsonResult result = userService.add(list);
+			System.out.println(result);
+		} catch (BusinessException e) {
+			printException(e);
+		}
+		
+	}
+	
+
+	@Test
+	public void delete() {
+		
+		try {
+			JsonResult add = userService.delById("");
+			System.out.println(add);
+		} catch (BusinessException e) {
+			printException(e);
+		}
+	}
+	
+	@Test
+	public void deleteBy() {
+		try {
+			Conditions conditions = new Conditions();
+			conditions.createCriteria().add(UserEnum.username.get(), ConditionEnum.EQ, "xhh9");
+			JsonResult add = userService.delBy(conditions);
+			System.out.println(add);
+		} catch (BusinessException e) {
+			printException(e);
+		}
+	}
+	
+	@Test
+	public void deleteIds() {
+		try {
+			List<String> list = new ArrayList<String>();
+			list.add("0a56583915864afcbadad966d050ef6c");
+			list.add("1ff54b553de7412e966a0a69c1cd8813");
+			JsonResult add = userService.delByIds(list);
+			System.out.println(add);
+		} catch (BusinessException e) {
+			printException(e);
+		}
+	}
+	
+
+	@Test
+	public void update() {
+		try {
+			User user = new User();
+			user.setAge(22);
+			user.setId("03eee323b8fd4722916a1fbcb683bba2");//id
+			user.setUsername("xhh-1");
+			user.setPassword("1234561");
+			user.setCreateTime("2017-07-08 11:46:61");
+			JsonResult add = userService.update(user);
+			System.out.println(add);
+		} catch (BusinessException e) {
+			printException(e);
+		}
+	}
+	
+	@Test
+	public void updateNotNull() {
+		try {
+			User user = new User();
+			user.setAge(21);
+			user.setId("03eee323b8fd4722916a1fbcb683bba2");//id
+			user.setUsername("xhh-111");
+			user.setCreateTime("2017-07-08 11:46:20");
+			JsonResult add = userService.updateNotNull(user);
+			System.out.println(add);
+		} catch (BusinessException e) {
+			printException(e);
+		}
+	}
+	
+	@Test
+	public void updateCustom() {
+		try {
+			UpdateParams params = new UpdateParams(User.class);
+			params.set(UserEnum.username.get(), "xj");
+			params.set(UserEnum.age.get(), 18);
+			
+			params.createConditions(true).createCriteria().add(UserEnum.username.get(), ConditionEnum.LIKE, "xhh-%");
+			JsonResult add = userService.update(params);
+			System.out.println(add);
+		} catch (BusinessException e) {
+			printException(e);
+		}
+	}
+
+	@Test
+	public void getById(){
+		User user = userService.getById("03eee323b8fd4722916a1fbcb683bba2");
+		System.out.println(user);
+	}
+	
+	@Test
+	public void getByEntity(){
+		User user = new User();
+		user.setUsername("xhh1");
+		user.setPassword("123456");
+		user = userService.getByEntity(user);
+		System.out.println(user);
+	}
+	
+	@Test
+	public void getList(){
+		Conditions conditions = new Conditions();
+		conditions.createCriteria().add(UserEnum.username.get(), ConditionEnum.LIKE, "xhh%");
+		
+		List<User> list = userService.getList(conditions);
+		System.out.println(list);
+	}
+	
+	@Test
+	public void getPage(){
+		Conditions conditions = new Conditions();
+		conditions.createCriteria().add(UserEnum.username.get(), ConditionEnum.LIKE, "xhh%");
+		Page<User> page = userService.getPage(conditions);
+		System.out.println(page);
+	}
+	
+	@Test
+	public void getPage1(){
+		Conditions conditions = new Conditions();
+		conditions.createCriteria().add(UserEnum.username.get(), ConditionEnum.LIKE, "xhh1");
+		// or 
+		Criteria cc = conditions.createCriteria();
+		cc.add(UserEnum.createTime.get(), IsBTEnum.BT, "2017-07-09 00:00:00" ,"2017-07-10 00:00:00");
+		conditions.or(cc);
+		
+		Page<User> page = userService.getPage(conditions);
+		System.out.println(page);
+	}
+	
+	private void printException(BusinessException e) {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		PrintStream pout = new PrintStream(out);
+		e.getOrgException().printStackTrace(pout);
+		String msg = new String(out.toByteArray());
+		logger.error(msg);
+	}
+}

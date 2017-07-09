@@ -51,6 +51,11 @@
 			}
 		}
 	}
+	
+	//把appName 和 appBaseDir存到session
+	HttpSession ss = request.getSession();
+	ss.setAttribute("appName", appName);
+	ss.setAttribute("appBaseDir", appBaseDir);
 
 	projectConfig.getDataModelMap().put("appCode", appCode);
 	projectConfig.getDataModelMap().put("appName", appName);

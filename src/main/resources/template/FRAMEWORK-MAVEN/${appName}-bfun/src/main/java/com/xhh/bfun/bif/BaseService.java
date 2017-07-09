@@ -78,7 +78,7 @@ public interface BaseService<T,PK> {
 	 * @return
 	 * @time 2016年10月14日 下午4:50:14
 	 */
-	public abstract JsonResult delByIds(PK[] ids) throws BusinessException;
+	public abstract JsonResult delByIds(List<PK> ids) throws BusinessException;
 
 	/**
 	 * @category 自定义删除，慎用 
@@ -103,6 +103,14 @@ public interface BaseService<T,PK> {
 	 * @time 2016年10月13日 下午5:18:52
 	 */
 	public abstract T getByEntity(T entity);
+	
+	/**
+	 * @category 根据对象查询
+	 * @param params
+	 * @return
+	 * @time 2016年10月13日 下午5:18:52
+	 */
+	public abstract List<T> getListByEntity(T entity);
 
 	/**
 	 * @category 自定义查询

@@ -21,7 +21,7 @@
 <mapper namespace="${MapperDir}.${Po}Mapper">
 	<resultMap type="${entity}" id="BaseResultMap">
 	  <#list table.columnList as column>
-      <result column="${column.fieldName}" property="${column.columnName}" jdbcType="${column.columnTypeName}"/>
+      <result column="${column.fieldName}" property="${column.columnName}"/>
 	  </#list>
 	</resultMap>
 	
@@ -43,7 +43,7 @@
 	</sql>
 	
 	<sql id="Update_Conditions_Where_Clause">
-	 <if test="conditions!=null">
+	 <if test="conditions != null">
  	  <foreach collection="conditions.oredCriteria" open="where" item="o" separator="or">
 	   <if test="o.valid">
 	    (
@@ -78,9 +78,11 @@
         ) VALUES (
 		    <#list table.columnList as column>
 		    <#if column.primaryKey=true>
-		    UUID()<#if column_has_next>,</#if>
+		     REPLACE(UUID(),'-','')<#if column_has_next>,</#if>
 		    </#if>
+		    <#if column.primaryKey=false>
 		    ${'#'}{${column.columnName?uncap_first}}<#if column_has_next>,</#if>
+		    </#if>
 		    </#list>
         )
     </insert>
@@ -92,8 +94,11 @@
     insert into ${tableName}
     <trim prefix="(" suffix=")" suffixOverrides=",">
      <#list table.columnList as column>
+     	<#if column.primaryKey=true>
+	     ${column.fieldName}<#if column_has_next>,</#if>
+	    </#if>
 	    <#if column.primaryKey=false>
-	    <if test="${column.columnName}!=null and ${column.columnName}!=''">
+	    <if test="${column.columnName} != null and ${column.columnName} != ''">
 	    ${column.fieldName}<#if column_has_next>,</#if>
 	    </if>
 	    </#if>
@@ -102,9 +107,14 @@
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
      <#list table.columnList as column>
-     	<if test="${column.columnName}!=null and ${column.columnName}!=''">
+     	<#if column.primaryKey=true>
+	     REPLACE(UUID(),'-','')<#if column_has_next>,</#if>
+	    </#if>
+     	<#if column.primaryKey=false>
+     	<if test="${column.columnName} != null and ${column.columnName} != ''">
 	    ${'#'}{${column.columnName?uncap_first}}<#if column_has_next>,</#if>
 	    </if>
+	    </#if>
 	 </#list>
     </trim>
   </insert>
@@ -130,7 +140,7 @@
         <trim prefix="SET" suffixOverrides=",">
             <#list table.columnList as column>
 		    <#if column.primaryKey=false>
-		    ${column.fieldName}=${'#'}{${column.columnName?uncap_first},jdbcType=${column.columnTypeName}}<#if column_has_next>,</#if>
+		    ${column.fieldName}=${'#'}{${column.columnName?uncap_first}}<#if column_has_next>,</#if>
 		    </#if>
 		    </#list>
         </trim>
@@ -138,7 +148,7 @@
         <#assign hasData=false>
         <#list table.columnList as column>
 		<#if column.primaryKey>
-        ${column.fieldName} = ${'#'}{${column.columnName?uncap_first},jdbcType=${column.columnTypeName}}<#if hasData==false><#assign hasData=true><#else> AND </#if>
+        ${column.fieldName} = ${'#'}{${column.columnName?uncap_first}}<#if hasData==false><#assign hasData=true><#else> AND </#if>
         </#if>
 		</#list>
     </update>
@@ -148,15 +158,15 @@
         <trim prefix="SET" suffixOverrides=",">
             <#list table.columnList as column>
 		    <#if column.primaryKey=false>
-            <if test="${column.columnName?uncap_first} !=null <#if column.columnClassName=='java.lang.String'> and ${column.columnName} != '' </#if>">
-                ${column.fieldName} = ${'#'}{${column.columnName?uncap_first},jdbcType=${column.columnTypeName}}<#if column_has_next>,</#if>
+            <if test="${column.columnName?uncap_first} != null <#if column.columnClassName=='java.lang.String'> and ${column.columnName} != '' </#if>">
+                ${column.fieldName} = ${'#'}{${column.columnName?uncap_first}}<#if column_has_next>,</#if>
             </if>
             </#if>
 		    </#list>
         </trim>
         <#list table.columnList as column>
 	    <#if column.primaryKey=true>
-        WHERE n_id=<@mapperEl column.columnName?uncap_first />
+        WHERE ${pkName}=<@mapperEl column.columnName?uncap_first />
         </#if>
 	    </#list>
     </update>
@@ -169,8 +179,8 @@
         </foreach>
     </trim>
 	<include refid="Update_Conditions_Where_Clause" />	
-	<if test="conditions!=null">
-		<if test="conditions.orderByClause!=null"> <@jspEl 'conditions.orderByClause'/></if> 
+	<if test="conditions != null">
+		<if test="conditions.orderByClause != null"> <@jspEl 'conditions.orderByClause'/></if> 
 	</if>	
     </update>
     
@@ -214,11 +224,23 @@
         FROM ${tableName} 
         WHERE 1 = 1
         <#list table.columnList as column>
-	     	<if test="${column.columnName} !=null <#if column.columnClassName=='java.lang.String'> and ${column.columnName} != '' </#if>">
-		   	 and ${column.fieldName}=${'#'}{${column.columnName?uncap_first},jdbcType=${column.columnTypeName}}
+	     	<if test="${column.columnName} != null <#if column.columnClassName=='java.lang.String'> and ${column.columnName} != '' </#if>">
+		   	 and ${column.fieldName}=${'#'}{${column.columnName?uncap_first}}
 		    </if>
 	 	</#list>
 	 	LIMIT 0,1
+    </select>
+    
+    <select id="findListByEntity" parameterType="${entity}" resultMap="BaseResultMap">
+        SELECT  
+	    <include refid="Base_Column_List" />
+        FROM ${tableName} 
+        WHERE 1 = 1
+        <#list table.columnList as column>
+	     	<if test="${column.columnName} != null <#if column.columnClassName=='java.lang.String'> and ${column.columnName} != '' </#if>">
+		   	 and ${column.fieldName}=${'#'}{${column.columnName?uncap_first}}
+		    </if>
+	 	</#list>
     </select>
 
     <select id="findByCondition" parameterType="${Conditions}" resultMap="BaseResultMap">
@@ -232,7 +254,7 @@
            </otherwise>
         </choose>
         FROM ${tableName}
-        <if test="connectTable!=null">
+        <if test="connectTable != null">
 	        <foreach collection="connectTable" item="tb">
 	       	,<@jspEl 'tb'/>
 	       	</foreach>
@@ -243,7 +265,7 @@
 
     <select id="findList"  parameterType="${Conditions}" resultMap="BaseResultMap">
         SELECT
-        <if test="distinct!=false">
+        <if test="distinct != false">
         DISTINCT
         </if>
         <choose>
@@ -255,21 +277,21 @@
            </otherwise>
         </choose>
         FROM ${tableName}
-         <if test="connectTable!=null">
+         <if test="connectTable != null">
 	        <foreach collection="connectTable" item="tb">
 	       	,<@jspEl 'tb'/>
 	       	</foreach>
         </if>
         <include refid="Conditions_Where_Clause" />
-        <if test="orderByClause!=null"><@jspEl 'orderByClause'/></if>
-        <if test="limit!=''"><@jspEl 'limit'/></if>
+        <if test="orderByClause != null"><@jspEl 'orderByClause'/></if>
+        <if test="limit != ''"><@jspEl 'limit'/></if>
     </select>
 
     <select id="findCount" parameterType="${Conditions}" resultType="java.lang.Long">
         SELECT
         COUNT(1)
         FROM ${tableName}
-        <if test="connectTable!=null">
+        <if test="connectTable != null">
 	        <foreach collection="connectTable" item="tb">
 	       	,<@jspEl 'tb'/>
 	       	</foreach>

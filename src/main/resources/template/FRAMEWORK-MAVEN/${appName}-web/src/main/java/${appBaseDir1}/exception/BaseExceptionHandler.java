@@ -1,3 +1,4 @@
+package ${appBaseDir}.exception;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.ByteArrayOutputStream;
@@ -24,7 +25,7 @@ public class BaseExceptionHandler {
 		//打印错误信息
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream pout = new PrintStream(out);
-        e.printStackTrace(pout);
+        e.getOrgException().printStackTrace(pout);
         String msg = new String(out.toByteArray());
 		logger.error(msg);
 		//返回json信息
