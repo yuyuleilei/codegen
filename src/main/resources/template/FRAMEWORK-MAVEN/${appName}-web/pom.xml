@@ -71,6 +71,11 @@
 		</dependency>
 		<dependency>
 			<groupId>${appBaseDir}</groupId>
+			<artifactId>${appName}-service</artifactId>
+			<version>${r'${project.version}'}</version>
+		</dependency>
+		<dependency>
+			<groupId>${appBaseDir}</groupId>
 			<artifactId>${appName}-common</artifactId>
 			<version>${r'${project.version}'}</version>
 		</dependency>

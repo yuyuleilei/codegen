@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
 import com.xhh.bfun.benum.BaseEnum.IsAdd;
 import com.xhh.bfun.benum.BaseEnum.TableOrPkEnum;
 import com.xhh.bfun.bexception.BaseException;
@@ -114,6 +115,11 @@ public class UpdateParams implements Serializable{
 		//字段验证，condition校验
 		
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
 	}
     
 }

@@ -27,6 +27,7 @@
 		<mybatis-spring.version>1.2.0</mybatis-spring.version>
 		<mysql.version>5.1.38</mysql.version>
 		<druid.version>1.0.26</druid.version>
+		<fastjson.version>1.2.31</fastjson.version>
 	</properties>
   <modules>
     <module>${appName}-common</module>

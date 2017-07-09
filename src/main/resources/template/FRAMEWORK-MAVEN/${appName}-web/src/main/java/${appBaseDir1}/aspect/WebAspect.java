@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class ServiceAspect {
+public class WebAspect {
 	
 	private final Logger logger = Logger.getLogger(this.getClass());
 
@@ -41,11 +41,12 @@ public class ServiceAspect {
 	public void doAfterInServiceLayer(JoinPoint jp) {
 		try {
 			endTimeMillis = System.currentTimeMillis(); // 记录方法执行完成的时间
-			sb.append("-----------------------------").append(jp.getSignature().getDeclaringTypeName()).append(" start-----------------------------");
+			sb.append("\n\n-----------------------------").append(jp.getSignature().getDeclaringTypeName()).append(" start-----------------------------");
 			sb.append("\n\n\n目标方法：").append(jp.getSignature().getDeclaringTypeName()).append(".").append(jp.getSignature().getName());
 			sb.append("\n\n传入参数："+ Arrays.toString(jp.getArgs()));
 			this.printOptLog();
-			sb.append("-----------------------------").append(jp.getSignature().getDeclaringTypeName()).append(" end-----------------------------");
+			sb.append("-----------------------------").append(jp.getSignature().getDeclaringTypeName()).append(" end-----------------------------\n\n");
+			logger.debug(sb.toString());
 		} catch (Exception e) {
 			logger.error("日志切面出错",e);
 		}

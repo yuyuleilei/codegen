@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
 import com.xhh.bfun.benum.BaseEnum.ConditionEnum;
 import com.xhh.bfun.benum.BaseEnum.DESCEnum;
 import com.xhh.bfun.benum.BaseEnum.IsBTEnum;
@@ -317,5 +318,10 @@ public class Conditions implements Serializable{
     		return this;
     	}
     }
+	
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
+	}
     
 }
