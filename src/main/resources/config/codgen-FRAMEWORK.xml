@@ -9,7 +9,7 @@
 		<dataModel name="appCode">CODEGEN_XHH</dataModel>
 		<dataModel name="appName">xhh</dataModel>
 		<dataModel name="appLabel">构建整体项目</dataModel>
-		<dataModel name="appBaseDir">com.company.xhh</dataModel>
+		<dataModel name="appBaseDir">com.hisign.xhh</dataModel>
 		<dataModel name="appBaseDir1">${appBaseDir?replace(".","/")}</dataModel>
 		<dataModel name="outputDirectory">e:/data/project/${appName}</dataModel>
 	</project>
