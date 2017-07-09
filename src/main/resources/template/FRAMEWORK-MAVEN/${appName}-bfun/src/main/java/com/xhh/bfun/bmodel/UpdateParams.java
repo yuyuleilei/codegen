@@ -60,7 +60,7 @@ public class UpdateParams implements Serializable{
      * @return
      * @time 2016年10月13日 下午4:47:20
      */
-	public UpdateParams add(String field,Object value){
+	public UpdateParams set(String field,Object value){
     	fields.add(field+"=");
     	values.add(value);
     	return this;
@@ -76,7 +76,7 @@ public class UpdateParams implements Serializable{
      * @return
      * @time 2016年10月13日 下午4:51:39
      */
-	public UpdateParams add(String field,IsAdd isAdd ,String value){
+	public UpdateParams set(String field,IsAdd isAdd ,String value){
     	fields.add(field+"="+field+isAdd);
     	values.add(value);
     	return this;

@@ -7,9 +7,9 @@
 			
 		<dataModel name="templateDirectory">template/FRAMEWORK-MAVEN</dataModel>
 		<dataModel name="appCode">CODEGEN_XHH</dataModel>
-		<dataModel name="appName">xhh</dataModel>
+		<dataModel name="appName">sample</dataModel>
 		<dataModel name="appLabel">构建整体项目</dataModel>
-		<dataModel name="appBaseDir">com.hisign.xhh</dataModel>
+		<dataModel name="appBaseDir">com.hisign.sample</dataModel>
 		<dataModel name="appBaseDir1">${appBaseDir?replace(".","/")}</dataModel>
 		<dataModel name="outputDirectory">e:/data/project/${appName}</dataModel>
 	</project>

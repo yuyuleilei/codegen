@@ -29,7 +29,7 @@ public class ServiceAspect {
 	private Object result;
 	private StringBuffer sb = new StringBuffer();
 	
-	@Pointcut("execution( *  com.hisign.xhh.service..*.*(..))")  
+	@Pointcut("execution(public * ${appBaseDir}.service.*.*(..)) || execution(public * ${appBaseDir}.*.service.*.*(..)) || execution(public * ${appBaseDir}.*.*.service.*.*(..))")
     public void logPoint() {}
 
 	@Before(value="logPoint()")
